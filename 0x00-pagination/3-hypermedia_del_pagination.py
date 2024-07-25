@@ -40,6 +40,8 @@ class Server:
         return self.__indexed_dataset
 
     def get_hyper_index(self, index: int = None, page_size: int = 10) -> Dict:
+        """Hyper getter
+        """
         assert index < len(self.dataset())
         data = [self.indexed_dataset()[i]
                 for i in range(index, index + page_size)]
@@ -49,6 +51,7 @@ class Server:
             'page_size': page_size,
             'data': data
         }
+
 
 if __name__ == '__main__':
     server = Server()
