@@ -1,3 +1,7 @@
+#!/usr/bin/python3
+""" BaseCaching module
+"""
+
 class BaseCaching:
     """ BaseCaching defines:
       - constants of your caching system

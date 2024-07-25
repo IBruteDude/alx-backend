@@ -1,24 +1,28 @@
 #!/usr/bin/env python3
 """Module for defining a basic caching system
 """
-from base_cache import BaseCaching
+from base_caching import BaseCaching
 
-class BasicCache(BaseCaching):
-    """ Basic unbounded caching system
+
+def put(self, key, item):
+    """ Add new item in cache with a key
     """
-    def put(self, key, item):
-        """ Add item in cache with a key
-        """
-        if not key or not item:
-            return None
-        self.cache_data[key] = item
+    if not key or not item:
+        return None
+    self.cache_data[key] = item
 
-    def get(self, key):
-        """ Retrieve item from cache with specified key
-        """
-        if not key:
-            return None
-        return self.cache_data.get(key, None)
+def get(self, key):
+    """ Retrieve item from cache with specified key
+    """
+    if not key:
+        return None
+    return self.cache_data.get(key, None)
+
+BasicCache = type('BasicCache', (BaseCaching,), {
+    '__doc__': 'Basic unbounded caching system',
+    'put': put,
+    'get': get
+})
 
 
 if __name__ == '__main__':

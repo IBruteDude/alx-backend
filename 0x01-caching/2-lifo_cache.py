@@ -2,37 +2,41 @@
 """Module for defining a lifo caching system
 """
 from collections import deque
-from base_cache import BaseCaching
+from base_caching import BaseCaching
 
 
-class LIFOCache(BaseCaching):
-    """ LIFO bounded caching system
+def __init__(self):
+    """ Initialise a private queue
     """
-    def __init__(self):
-        """ Initialise a private queue
-        """
-        super().__init__()
-        self.__lifo = deque()
+    super(self.__class__, self).__init__()
+    self.__lifo = deque()
 
-    def put(self, key, item):
-        """ Add item in cache with a key, removing last added items if full
-        """
-        if not key or not item:
-            return None
-        if not self.cache_data.get(key):
-            if len(self.cache_data) == self.MAX_ITEMS:
-                old_key = self.__lifo.pop()
-                del self.cache_data[old_key]
-                print("DISCARD:", old_key)
-        self.__lifo.append(key)
-        self.cache_data[key] = item
+def put(self, key, item):
+    """ Add item in cache with a key, removing last added items if full
+    """
+    if not key or not item:
+        return None
+    if not self.cache_data.get(key):
+        if len(self.cache_data) == self.MAX_ITEMS:
+            old_key = self.__lifo.pop()
+            del self.cache_data[old_key]
+            print("DISCARD:", old_key)
+    self.__lifo.append(key)
+    self.cache_data[key] = item
 
-    def get(self, key):
-        """ Retrieve item from cache with specified key
-        """
-        if not key:
-            return None
-        return self.cache_data.get(key, None)
+def get(self, key):
+    """ Retrieve item from cache with specified key
+    """
+    if not key:
+        return None
+    return self.cache_data.get(key, None)
+
+LIFOCache = type('LIFOCache', (BaseCaching,), {
+    '__doc__': 'LIFO bounded caching system',
+    '__init__': __init__,
+    'put': put,
+    'get': get
+})
 
 
 if __name__ == '__main__':

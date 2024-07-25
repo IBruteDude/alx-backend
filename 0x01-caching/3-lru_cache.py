@@ -2,48 +2,48 @@
 """Module for defining an lru caching system
 """
 from heapq import heappop, heappush
-from base_cache import BaseCaching
+from base_caching import BaseCaching
 
 
-class LRUCache(BaseCaching):
-    """ LRU bounded caching system
+def __init__(self):
+    """ Initialise a private queue
     """
-    def __init__(self):
-        """ Initialise a private queue
-        """
-        super().__init__()
-        self.__lru = []
-        self.__age = 0
+    super(self.__class__, self).__init__()
+    self.__lru = []
+    self.__age = 0
 
-    def put(self, key, item):
-        """ Add item in cache with a key, removing least recently usef if full
-        """
-        if not key or not item:
-            return None
-        if not self.cache_data.get(key):
-            if len(self.cache_data) == self.MAX_ITEMS:
-                old_key = heappop(self.__lru)
-                del self.cache_data[old_key[1]]
-                print("DISCARD:", old_key[1])
-        else:
-            for i, k in enumerate(self.__lru):
-                if k[1] == key:
-                    self.__lru.pop(i)
+def put(self, key, item):
+    """ Add item in cache with a key, removing least recently used if full
+    """
+    if not key or not item:
+        return None
+    if not self.cache_data.get(key):
+        if len(self.cache_data) == self.MAX_ITEMS:
+            old_key = heappop(self.__lru)
+            del self.cache_data[old_key[1]]
+            print("DISCARD:", old_key[1])
+    else:
+        for i, k in enumerate(self.__lru):
+            if k[1] == key:
+                self.__lru.pop(i)
 
+    heappush(self.__lru, (self.__age, key))
+    self.cache_data[key] = item
+    self.__age += 1
 
-        heappush(self.__lru, (self.__age, key))
-        self.cache_data[key] = item
-        self.__age += 1
+def get(self, key):
+    """ Retrieve item from cache with specified key
+    """
+    if not key:
+        return None
+    return self.cache_data.get(key, None)
 
-    def get(self, key):
-        """ Retrieve item from cache with specified key
-        """
-        if not key:
-            return None
-        item = self.cache_data.get(key, None)
-        if not item:
-            return None
-        return item[1]
+LRUCache = type('LRUCache', (BaseCaching,), {
+    '__doc__': 'LRU bounded caching system',
+    '__init__': __init__,
+    'put': put,
+    'get': get
+})
 
 
 if __name__ == '__main__':
