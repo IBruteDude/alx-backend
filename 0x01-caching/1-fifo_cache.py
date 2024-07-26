@@ -11,6 +11,7 @@ def __init__(self):
     super(self.__class__, self).__init__()
     self.__fifo = deque()
 
+
 def put(self, key, item):
     """ Add item in cache with a key, removing first added items if full
     """
@@ -24,12 +25,14 @@ def put(self, key, item):
     self.__fifo.append(key)
     self.cache_data[key] = item
 
+
 def get(self, key):
     """ Retrieve item from cache with specified key
     """
     if not key:
         return None
     return self.cache_data.get(key, None)
+
 
 FIFOCache = type('FIFOCache', (BaseCaching,), {
     '__doc__': 'FIFO bounded caching system',

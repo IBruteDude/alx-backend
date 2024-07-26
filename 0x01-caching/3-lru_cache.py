@@ -6,11 +6,12 @@ from base_caching import BaseCaching
 
 
 def __init__(self):
-    """ Initialise a private queue
+    """ Initialise a private heap
     """
     super(self.__class__, self).__init__()
     self.__lru = []
     self.__age = 0
+
 
 def put(self, key, item):
     """ Add item in cache with a key, removing least recently used if full
@@ -31,12 +32,14 @@ def put(self, key, item):
     self.cache_data[key] = item
     self.__age += 1
 
+
 def get(self, key):
     """ Retrieve item from cache with specified key
     """
     if not key:
         return None
     return self.cache_data.get(key, None)
+
 
 LRUCache = type('LRUCache', (BaseCaching,), {
     '__doc__': 'LRU bounded caching system',

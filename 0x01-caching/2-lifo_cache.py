@@ -11,6 +11,7 @@ def __init__(self):
     super(self.__class__, self).__init__()
     self.__lifo = deque()
 
+
 def put(self, key, item):
     """ Add item in cache with a key, removing last added items if full
     """
@@ -24,12 +25,14 @@ def put(self, key, item):
     self.__lifo.append(key)
     self.cache_data[key] = item
 
+
 def get(self, key):
     """ Retrieve item from cache with specified key
     """
     if not key:
         return None
     return self.cache_data.get(key, None)
+
 
 LIFOCache = type('LIFOCache', (BaseCaching,), {
     '__doc__': 'LIFO bounded caching system',

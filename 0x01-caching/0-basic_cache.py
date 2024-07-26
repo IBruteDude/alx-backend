@@ -11,12 +11,14 @@ def put(self, key, item):
         return None
     self.cache_data[key] = item
 
+
 def get(self, key):
     """ Retrieve item from cache with specified key
     """
     if not key:
         return None
     return self.cache_data.get(key, None)
+
 
 BasicCache = type('BasicCache', (BaseCaching,), {
     '__doc__': 'Basic unbounded caching system',
