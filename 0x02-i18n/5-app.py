@@ -47,12 +47,12 @@ def before_request():
         g.user = user
 
 
-
 @app.route('/', strict_slashes=False)
 def index() -> str:
     """Return the app's index page
     """
-    return render_template('5-index.html', logged_in=(g.user is not None))
+    return render_template('5-index.html',
+                           logged_in=(getattr(g, 'user', False)))
 
 
 if __name__ == '__main__':
