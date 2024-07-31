@@ -7,28 +7,33 @@ from typing import Optional
 
 
 class Config:
-	"""class for configuring the flask app
-	"""
-	LANGUAGES = ["en", "fr"]
+    """class for configuring the flask app
+    """
+    LANGUAGES = ["en", "fr"]
 
 
 app = Flask(__name__)
-app.config['LANGUAGES'] = Config.LANGUAGES
+app.config.from_object(Config())
 
 
 def get_locale() -> Optional[str]:
-	"""get the best matching locale from configured languages
-	"""
-	return request.accept_languages.best_match(app.config['LANGUAGES'])
+    """get the best matching locale from configured languages
+    """
+    return request.accept_languages.best_match(app.config['LANGUAGES'])
 
-babel = Babel(app, default_locale=Config.LANGUAGES[0], default_timezone='UTC', locale_selector=get_locale)
+
+babel = Babel(app,
+              default_locale=Config.LANGUAGES[0],
+              default_timezone='UTC',
+              locale_selector=get_locale)
+
 
 @app.route('/', strict_slashes=False)
 def index() -> str:
-	"""Return the app's index page
-	"""
-	return render_template('2-index.html')
+    """Return the app's index page
+    """
+    return render_template('2-index.html')
 
 
 if __name__ == '__main__':
-	app.run()
+    app.run()
