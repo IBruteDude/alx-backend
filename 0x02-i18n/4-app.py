@@ -21,6 +21,8 @@ babel = Babel(app, default_locale=Config.LANGUAGES[0], default_timezone='UTC')
 def get_locale() -> Optional[str]:
     """get the best matching locale from configured languages
     """
+    if request.args.get('locale', None) in app.config['LANGUAGES']:
+        return request.args.get('locale')
     return request.accept_languages.best_match(app.config['LANGUAGES'])
 
 
@@ -28,7 +30,7 @@ def get_locale() -> Optional[str]:
 def index() -> str:
     """Return the app's index page
     """
-    return render_template('2-index.html')
+    return render_template('4-index.html')
 
 
 if __name__ == '__main__':
